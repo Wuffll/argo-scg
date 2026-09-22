@@ -1128,11 +1128,14 @@ class ConfigurationGenerator:
                         st for st in self.servicetypes_with_port if
                         item["service"] == st["service"]
                     ]
-                    labels.update({
-                        "info_url": self._handle_endpoint_url(
-                            url
-                        )
-                    })
+                    
+                    if "info_URL" in item["tags"]:
+                        labels.update({
+                            "info_url": self._handle_endpoint_url(
+                                url
+                            )
+                        })
+                    
                     o = urlparse(url)
                     port = o.port
 
