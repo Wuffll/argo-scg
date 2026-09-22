@@ -1139,12 +1139,11 @@ class ConfigurationGenerator:
                     o = urlparse(url)
                     port = o.port
 
-                    if item["service"] in self.servicetypes_with_SSL:
+                    if item["service"] in self.servicetypes_with_SSL:                        
                         if (o.scheme == "https" 
                             or "info_ext_SSL" in item["tags"]
                         ):
                             labels.update({"ssl": "-S --sni"})
-
                     path = o.path
                     if path:
                         if o.query:
@@ -1479,7 +1478,10 @@ class ConfigurationGenerator:
                             elif (tag[9:] in non_fallback_urls_created and
                                   not present_in_all):
                                 continue
-
+                            
+                            elif tag.lower() == "info_ext_ssl":
+                                continue
+                            
                             elif present_in_all or tag.endswith("_URL"):
                                 if value in ["0", "1"]:
                                     value = ""
